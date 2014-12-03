@@ -11,7 +11,8 @@ HAL is a hypermedia client library written in Swift that supports the [HAL+JSON 
 
 - [x] Support for basic HAL+JSON documents
 - [x] GET, POST, PUT, PATCH and DELETE
-- [ ] Link parameters
+- [ ] Templated links
+- [ ] Curries
 - [ ] Authentication
 - [ ] Improved error handling
 
