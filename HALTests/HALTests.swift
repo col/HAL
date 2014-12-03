@@ -12,6 +12,8 @@ import Alamofire
 
 class HALTests: XCTestCase {
     
+    let sampleApiUrl = "http://sample-hal-api.herokuapp.com"
+    
     let basicHalResponse: Dictionary<String, AnyObject> = [
         "message": "Hello",
         "_links": ["self": "http://example.org"],
@@ -44,7 +46,7 @@ class HALTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        Alamofire.request(.GET, "http://localhost:9292/reset")
+        Alamofire.request(.GET, sampleApiUrl+"/reset")
             .responseJSON { (request, response, data, error) in
                 let response = data as [String: AnyObject]
                 let status = response["status"] as String
@@ -98,12 +100,12 @@ class HALTests: XCTestCase {
     func testClassGet() {
         let success = expectationWithDescription("is successful")
         
-        HAL.get("http://localhost:9292").then { (client) -> Void in
+        HAL.get(sampleApiUrl).then { (client) -> Void in
             XCTAssertEqual(client.attributes().count, 1)
             XCTAssertEqual(client.attribute("message") as String, "Hello")
             XCTAssertEqual(client.links().count, 2)
-            XCTAssertEqual(client.link("self"), "http://localhost:9292")
-            XCTAssertEqual(client.link("items"), "http://localhost:9292/items")
+            XCTAssertEqual(client.link("self"), self.sampleApiUrl)
+            XCTAssertEqual(client.link("items"), self.sampleApiUrl+"/items")
             XCTAssertEqual(client.embedded().count, 0)
             success.fulfill()
         }
@@ -114,12 +116,12 @@ class HALTests: XCTestCase {
     func testInstanceGet() {
         let success = expectationWithDescription("is successful")
         
-        HAL.get("http://localhost:9292").then(body: { (client) -> Promise<HAL> in
+        HAL.get(sampleApiUrl).then(body: { (client) -> Promise<HAL> in
             return client.get("items")
         }).then(body: { (collection) -> Void in
             XCTAssertEqual(collection.attributes().count, 0)
             XCTAssertEqual(collection.links().count, 1)
-            XCTAssertEqual(collection.link("self"), "http://localhost:9292/items")
+            XCTAssertEqual(collection.link("self"), self.sampleApiUrl+"/items")
             XCTAssertEqual(collection.embedded().count, 1)
             let items: [HAL] = collection.embedded("items") as [HAL]
             XCTAssertEqual(items.count, 0)
@@ -132,7 +134,7 @@ class HALTests: XCTestCase {
     func testInstancePost() {
         let success = expectationWithDescription("is successful")
         
-        HAL.get("http://localhost:9292").then(body: { (client) -> Promise<HAL> in
+        HAL.get(sampleApiUrl).then(body: { (client) -> Promise<HAL> in
             let newItem = [
                 "title": "New Item",
                 "description": "Created via the unit tests!"
@@ -143,7 +145,7 @@ class HALTests: XCTestCase {
             XCTAssertEqual(resource.attribute("title") as String, "New Item")
             XCTAssertEqual(resource.attribute("description") as String, "Created via the unit tests!")
             XCTAssertEqual(resource.links().count, 1)
-            XCTAssertTrue(resource.link("self").hasPrefix("http://localhost:9292/items/"))
+            XCTAssertTrue(resource.link("self").hasPrefix(self.sampleApiUrl+"/items/"))
             success.fulfill()
         })
         
@@ -153,7 +155,7 @@ class HALTests: XCTestCase {
     func testInstancePut() {
         let success = expectationWithDescription("is successful")
         
-        HAL.get("http://localhost:9292").then(body: { (client) -> Promise<HAL> in
+        HAL.get(sampleApiUrl).then(body: { (client) -> Promise<HAL> in
             let newItem = [
                 "title": "New Item",
                 "description": "Created via the unit tests!"
@@ -170,7 +172,7 @@ class HALTests: XCTestCase {
             XCTAssertEqual(resource.attribute("title") as String, "New Item2")
             XCTAssertEqual(resource.attribute("description") as String, "Updated via the unit tests!")
             XCTAssertEqual(resource.links().count, 1)
-            XCTAssertTrue(resource.link("self").hasPrefix("http://localhost:9292/items/"))
+            XCTAssertTrue(resource.link("self").hasPrefix(self.sampleApiUrl+"/items/"))
             success.fulfill()
         });
         
@@ -180,7 +182,7 @@ class HALTests: XCTestCase {
     func testInstancePatch() {
         let success = expectationWithDescription("is successful")
         
-        HAL.get("http://localhost:9292").then(body: { (client) -> Promise<HAL> in
+        HAL.get(sampleApiUrl).then(body: { (client) -> Promise<HAL> in
             let newItem = [
                 "title": "New Item",
                 "description": "Created via the unit tests!"
@@ -197,7 +199,7 @@ class HALTests: XCTestCase {
             XCTAssertEqual(resource.attribute("title") as String, "New Item2")
             XCTAssertEqual(resource.attribute("description") as String, "Updated via the unit tests!")
             XCTAssertEqual(resource.links().count, 1)
-            XCTAssertTrue(resource.link("self").hasPrefix("http://localhost:9292/items/"))
+            XCTAssertTrue(resource.link("self").hasPrefix(self.sampleApiUrl+"/items/"))
             success.fulfill()
         });
         
@@ -207,7 +209,7 @@ class HALTests: XCTestCase {
     func testInstanceDelete() {
         let success = expectationWithDescription("is successful")
         
-        HAL.get("http://localhost:9292").then(body: { (client) -> Promise<HAL> in
+        HAL.get(sampleApiUrl).then(body: { (client) -> Promise<HAL> in
             let newItem = [
                 "title": "New Item",
                 "description": "Created via the unit tests!"
