@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF4A57851A2EFA9500C8BDCB /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4A57841A2EFA9500C8BDCB /* URITemplate.swift */; };
+		EF4A57861A2EFD0500C8BDCB /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4A57841A2EFA9500C8BDCB /* URITemplate.swift */; };
 		EF6FD65D1A2DDA24009C673C /* HAL.h in Headers */ = {isa = PBXBuildFile; fileRef = EF6FD65C1A2DDA24009C673C /* HAL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF6FD6631A2DDA24009C673C /* HAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF6FD6571A2DDA24009C673C /* HAL.framework */; };
 		EF6FD66A1A2DDA24009C673C /* HALTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FD6691A2DDA24009C673C /* HALTests.swift */; };
@@ -63,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EF4A57841A2EFA9500C8BDCB /* URITemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URITemplate.swift; path = "Swift-URITemplate/source/URITemplate.swift"; sourceTree = "<group>"; };
 		EF6FD6571A2DDA24009C673C /* HAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF6FD65B1A2DDA24009C673C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF6FD65C1A2DDA24009C673C /* HAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HAL.h; sourceTree = "<group>"; };
@@ -97,10 +100,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF4A57821A2EFA7900C8BDCB /* URITemplate */ = {
+			isa = PBXGroup;
+			children = (
+				EF4A57841A2EFA9500C8BDCB /* URITemplate.swift */,
+			);
+			name = URITemplate;
+			sourceTree = "<group>";
+		};
 		EF6FD64D1A2DDA24009C673C = {
 			isa = PBXGroup;
 			children = (
 				EF6FD6E01A2DDB25009C673C /* Alamofire.xcodeproj */,
+				EF4A57821A2EFA7900C8BDCB /* URITemplate */,
 				EF6FD6D01A2DDA8D009C673C /* PromiseKit */,
 				EF6FD6591A2DDA24009C673C /* HAL */,
 				EF6FD6661A2DDA24009C673C /* HALTests */,
@@ -311,6 +323,7 @@
 				EF6FD6741A2DDA43009C673C /* HAL.swift in Sources */,
 				EF6FD6D61A2DDA8D009C673C /* after.swift in Sources */,
 				EF6FD6D81A2DDA8D009C673C /* constants.swift in Sources */,
+				EF4A57851A2EFA9500C8BDCB /* URITemplate.swift in Sources */,
 				EF6FD6DE1A2DDA8D009C673C /* when.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF4A57861A2EFD0500C8BDCB /* URITemplate.swift in Sources */,
 				EF6FD66A1A2DDA24009C673C /* HALTests.swift in Sources */,
 				EF6FD6D71A2DDA8D009C673C /* after.swift in Sources */,
 				EF6FD6DD1A2DDA8D009C673C /* Promise.swift in Sources */,

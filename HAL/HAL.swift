@@ -49,12 +49,12 @@ public class HAL {
     }
     
     public func get() -> Promise<HAL> {
-        return get("self", params: nil)
+        return get("self")
     }
     
-    public func get(key: String, params: [String: AnyObject]? = nil) -> Promise<HAL> {
-        var link = self.link(key)
-        return HAL._loadRequest( Alamofire.request(.GET, link, parameters: params) )
+    public func get(key: String, params: [String: AnyObject] = [String: AnyObject]()) -> Promise<HAL> {
+        var url = self.link_url(key, params: params)
+        return HAL._loadRequest( Alamofire.request(.GET, url) )
     }
     
     public func post(params: [String: AnyObject]) -> Promise<HAL> {
@@ -62,8 +62,8 @@ public class HAL {
     }
     
     public func post(key: String, params: [String: AnyObject]) -> Promise<HAL> {
-        var link = self.link(key)
-        return HAL._loadRequest( Alamofire.request(.POST, link, parameters: params) )
+        var url = self.link_url(key)
+        return HAL._loadRequest( Alamofire.request(.POST, url, parameters: params) )
     }
     
     public func put(params: [String: AnyObject]) -> Promise<HAL> {
@@ -71,8 +71,8 @@ public class HAL {
     }
     
     public func put(key: String, params: [String: AnyObject]) -> Promise<HAL> {
-        var link = self.link(key)
-        return HAL._loadRequest( Alamofire.request(.PUT, link, parameters: params) )
+        var url = self.link_url(key)
+        return HAL._loadRequest( Alamofire.request(.PUT, url, parameters: params) )
     }
     
     public func patch(params: [String: AnyObject]) -> Promise<HAL> {
@@ -80,8 +80,8 @@ public class HAL {
     }
     
     public func patch(key: String, params: [String: AnyObject]) -> Promise<HAL> {
-        var link = self.link(key)
-        return HAL._loadRequest( Alamofire.request(.PATCH, link, parameters: params) )
+        var url = self.link_url(key)
+        return HAL._loadRequest( Alamofire.request(.PATCH, url, parameters: params) )
     }
     
     public func delete() -> Promise<HAL> {
@@ -89,8 +89,8 @@ public class HAL {
     }
     
     public func delete(key: String) -> Promise<HAL> {
-        var link = self.link(key)
-        return HAL._loadRequest( Alamofire.request(.DELETE, link) )
+        var url = self.link_url(key)
+        return HAL._loadRequest( Alamofire.request(.DELETE, url) )
     }
     
     public func attributes() -> [String: AnyObject] {
@@ -105,8 +105,33 @@ public class HAL {
         return _links
     }
     
-    public func link(key: String) -> String {
-        return _links[key] as String
+    public func link(key: String) -> AnyObject? {
+        return _links[key]
+    }
+    
+    public func isTemplated(key: String) -> Bool {
+        var link: AnyObject = self.link(key)!
+        if link is [String: AnyObject] {
+            let templated = link["templated"]
+            return templated as? Bool != nil
+        }
+        return false
+    }
+    
+    public func link_url(key: String, params: [String: AnyObject] = [String: AnyObject]()) -> String {
+        var link: AnyObject = self.link(key)!
+        
+        if link is String {
+            return link as String
+        } else if link is [String: AnyObject] {
+            if self.isTemplated(key) {
+                return ExpandURITemplate(link["href"] as String, values: params)
+            } else {
+                return link["href"] as String
+            }
+        }
+        
+        return ""
     }
     
     public func embedded() -> [String: AnyObject] {
