@@ -1,5 +1,7 @@
 ![HAL 9000](http://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/HAL9000.svg/440px-HAL9000.svg.png)
 
+[![Build Status](https://travis-ci.org/col/HAL.svg)](https://travis-ci.org/col/HAL)
+
 HAL
 ===
 
