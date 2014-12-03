@@ -3,4 +3,4 @@
 	url = https://github.com/Alamofire/Alamofire.git
 [submodule "Swift-URITemplate"]
 	path = Swift-URITemplate
-	url = git@github.com:weipin/Swift-URITemplate.git
+	url = git@github.com:col/Swift-URITemplate.git
