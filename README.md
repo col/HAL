@@ -1,5 +1,7 @@
 ![HAL 9000](http://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/HAL9000.svg/440px-HAL9000.svg.png)
 
+[![Build Status](https://travis-ci.org/col/HAL.svg)](https://travis-ci.org/col/HAL)
+
 HAL
 ===
 
@@ -9,9 +11,10 @@ HAL is a hypermedia client library written in Swift that supports the [HAL+JSON 
 
 - [x] Support for basic HAL+JSON documents
 - [x] GET, POST, PUT, PATCH and DELETE
-- [] Link parameters
-- [] Authentication
-- [] Improved error handling
+- [ ] Templated links
+- [ ] Curries
+- [ ] Authentication
+- [ ] Improved error handling
 
 ## Requirements
 
